@@ -1,0 +1,15 @@
+{
+    "name": "julienbourdeau/server-monitr",
+    "description": "Simple tool to manager your server",
+    "require": {
+        "twbs/bootstrap": "3.0.3",
+        "components/jquery": "1.11",
+        "natxet/CssMin": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "Julien Bourdeau",
+            "email": "julien@sigerr.org"
+        }
+    ]
+}

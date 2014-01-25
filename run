@@ -1,0 +1,32 @@
+#!/usr/local/bin/php
+<?php
+    //loading composer's autoload
+    chdir(__DIR__);
+    if (file_exists('vendor/autoload.php')) {
+        include 'vendor/autoload.php';
+    }
+
+    use Assetic\Asset\AssetCollection;
+    use Assetic\Factory\AssetFactory;
+    use Assetic\Asset\FileAsset;
+    use Assetic\Asset\GlobAsset;
+    use Assetic\Filter\LessFilter;
+    use Assetic\Filter\CssMinFilter;
+    use Assetic\AssetWriter;
+    use Assetic\AssetManager;
+
+    //Asset manager
+    $am = new AssetManager();
+
+    //Add all css files
+    $css = new AssetCollection(array(
+        new FileAsset('vendor/twbs/bootstrap/less/bootstrap.less', array( new LessFilter(), new CssMinFilter() ) ),
+        new GlobAsset('assets/less/*.less', array( new LessFilter(), new CssMinFilter() ) ),
+    ));
+    $css->setTargetPath('style.min.css');   
+    $am->set('stylecss', $css);
+
+
+    // Dumping assets into public
+    $writer = new AssetWriter('web');
+    $writer->writeManagerAssets($am);
