@@ -12,6 +12,7 @@
     use Assetic\Asset\GlobAsset;
     use Assetic\Filter\LessFilter;
     use Assetic\Filter\CssMinFilter;
+    use Assetic\Filter\JSMinFilter;
     use Assetic\AssetWriter;
     use Assetic\AssetManager;
 
@@ -23,8 +24,18 @@
         new FileAsset('vendor/twbs/bootstrap/less/bootstrap.less', array( new LessFilter(), new CssMinFilter() ) ),
         new GlobAsset('assets/less/*.less', array( new LessFilter(), new CssMinFilter() ) ),
     ));
-    $css->setTargetPath('style.min.css');   
+    $css->setTargetPath('style.min.css');
     $am->set('stylecss', $css);
+
+    $js = new AssetCollection(array(
+        new FileAsset('components/jquery/jquery.js', array( new JSMinFilter() ) ),
+        new FileAsset('vendor/twbs/bootstrap/js/affix.js', array( new JSMinFilter() ) ),
+        new FileAsset('vendor/twbs/bootstrap/js/button.js', array( new JSMinFilter() ) ),
+        new FileAsset('vendor/twbs/bootstrap/js/scrollspy.js', array( new JSMinFilter() ) ),
+        new FileAsset('assets/js/app.js', array( new JSMinFilter() ) ),
+    ));
+    $js->setTargetPath('app.min.js');
+    $am->set('javascript', $js);
 
 
     // Dumping assets into public
